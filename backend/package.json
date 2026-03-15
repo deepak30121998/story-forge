@@ -1,0 +1,22 @@
+{
+  "name": "story-forge-api",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node --watch src/index.js"
+  },
+  "dependencies": {
+    "@google-cloud/firestore": "^8.3.0",
+    "@google-cloud/storage": "^7.19.0",
+    "@google-cloud/text-to-speech": "^6.4.0",
+    "@google/adk": "^0.5.0",
+    "@google/genai": "^1.45.0",
+    "cors": "^2.8.6",
+    "dotenv": "^17.3.1",
+    "express": "^5.2.1",
+    "uuid": "^13.0.0",
+    "ws": "^8.19.0"
+  }
+}

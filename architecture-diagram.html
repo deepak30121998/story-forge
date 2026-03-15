@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Story Forge - Architecture Diagram</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #06050e; color: #e8e4f0; font-family: 'Segoe UI', system-ui, sans-serif; padding: 40px; min-height: 100vh; }
+  h1 { text-align: center; font-size: 2rem; margin-bottom: 8px; background: linear-gradient(135deg, #c084fc, #8b5cf6, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .subtitle { text-align: center; color: #8890a4; font-size: 0.9rem; margin-bottom: 40px; }
+  svg { display: block; margin: 0 auto; max-width: 1000px; }
+  .category-label { font-size: 11px; fill: #8890a4; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; }
+  .box { rx: 12; ry: 12; }
+  .box-primary { fill: #1a1730; stroke: #8b5cf6; stroke-width: 1.5; }
+  .box-secondary { fill: #12101f; stroke: #2a2545; stroke-width: 1; }
+  .box-google { fill: #12101f; stroke: #4285f4; stroke-width: 1.5; }
+  .box-agent { fill: #1a1730; stroke: #c084fc; stroke-width: 2; }
+  .title-text { fill: #e8e4f0; font-size: 13px; font-weight: 600; }
+  .desc-text { fill: #8890a4; font-size: 10px; }
+  .icon-text { font-size: 18px; }
+  .arrow { stroke: #4a4570; stroke-width: 1.5; fill: none; marker-end: url(#arrowhead); }
+  .arrow-primary { stroke: #8b5cf6; stroke-width: 2; }
+  .arrow-data { stroke: #4285f4; stroke-dasharray: 6 4; }
+  .label-text { fill: #8890a4; font-size: 9px; font-style: italic; }
+  .badge { rx: 8; ry: 8; }
+  .badge-purple { fill: rgba(139, 92, 246, 0.15); stroke: rgba(139, 92, 246, 0.3); stroke-width: 1; }
+  .badge-blue { fill: rgba(66, 133, 244, 0.15); stroke: rgba(66, 133, 244, 0.3); stroke-width: 1; }
+  .badge-text { font-size: 9px; font-weight: 600; }
+  .badge-text-purple { fill: #c084fc; }
+  .badge-text-blue { fill: #4285f4; }
+  .legend { margin-top: 30px; text-align: center; }
+  .legend span { display: inline-flex; align-items: center; gap: 6px; margin: 0 12px; font-size: 12px; color: #8890a4; }
+  .legend-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+</style>
+</head>
+<body>
+<h1>Story Forge Architecture</h1>
+<p class="subtitle">Creative Storyteller AI Agent &mdash; Gemini Live Agent Challenge</p>
+
+<svg viewBox="0 0 960 680" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arrowhead" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#4a4570" />
+    </marker>
+    <marker id="arrowhead-purple" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#8b5cf6" />
+    </marker>
+    <marker id="arrowhead-blue" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#4285f4" />
+    </marker>
+  </defs>
+
+  <!-- === FRONTEND === -->
+  <text x="140" y="30" class="category-label">Frontend</text>
+  <rect x="30" y="42" width="260" height="120" class="box box-primary" />
+  <text x="60" y="68" class="icon-text">&#x1F310;</text>
+  <text x="82" y="70" class="title-text">Next.js Frontend</text>
+  <text x="50" y="92" class="desc-text">React + Tailwind CSS</text>
+  <text x="50" y="108" class="desc-text">Story Creator Wizard</text>
+  <text x="50" y="124" class="desc-text">Interactive Story Reader</text>
+  <text x="50" y="140" class="desc-text">Decision Point UI + Audio Player</text>
+  <rect x="40" y="148" width="68" height="18" class="badge badge-purple" />
+  <text x="52" y="160" class="badge-text badge-text-purple">Cloud Run</text>
+
+  <!-- === BACKEND === -->
+  <text x="440" y="30" class="category-label">Backend (Node.js / Express)</text>
+  <rect x="340" y="42" width="300" height="120" class="box box-primary" />
+  <text x="370" y="68" class="icon-text">&#x2699;</text>
+  <text x="392" y="70" class="title-text">Express.js API + WebSocket</text>
+  <text x="360" y="92" class="desc-text">REST: /api/stories, /api/agent</text>
+  <text x="360" y="108" class="desc-text">WebSocket: /ws (real-time streaming)</text>
+  <text x="360" y="124" class="desc-text">Input validation, CORS, error handling</text>
+  <text x="360" y="140" class="desc-text">In-memory fallback for local dev</text>
+  <rect x="350" y="148" width="68" height="18" class="badge badge-purple" />
+  <text x="362" y="160" class="badge-text badge-text-purple">Cloud Run</text>
+  <rect x="425" y="148" width="90" height="18" class="badge badge-blue" />
+  <text x="434" y="160" class="badge-text badge-text-blue">Session Affinity</text>
+
+  <!-- Arrow: Frontend -> Backend -->
+  <line x1="290" y1="100" x2="335" y2="100" class="arrow arrow-primary" marker-end="url(#arrowhead-purple)" />
+  <text x="296" y="93" class="label-text">REST / WS</text>
+
+  <!-- === ADK AGENT (centerpiece) === -->
+  <text x="400" y="210" class="category-label">ADK Agent</text>
+  <rect x="340" y="222" width="300" height="150" class="box box-agent" />
+  <text x="370" y="252" class="icon-text">&#x1F525;</text>
+  <text x="396" y="254" class="title-text">Ignis — The Storyteller</text>
+  <rect x="350" y="262" width="120" height="16" class="badge badge-purple" />
+  <text x="358" y="274" class="badge-text badge-text-purple">@google/adk v0.5.0</text>
+  <text x="360" y="298" class="desc-text">&#x2022; LlmAgent with persona &amp; tools</text>
+  <text x="360" y="314" class="desc-text">&#x2022; generate_illustration (interleaved)</text>
+  <text x="360" y="330" class="desc-text">&#x2022; generate_narration (Cloud TTS)</text>
+  <text x="360" y="346" class="desc-text">&#x2022; store_memory / recall_memory</text>
+  <text x="360" y="362" class="desc-text">&#x2022; save_chapter (Firestore)</text>
+
+  <!-- Arrow: Backend -> Agent -->
+  <line x1="490" y1="165" x2="490" y2="218" class="arrow arrow-primary" marker-end="url(#arrowhead-purple)" />
+
+  <!-- === GEMINI === -->
+  <text x="750" y="210" class="category-label">AI Model</text>
+  <rect x="700" y="222" width="230" height="100" class="box box-google" />
+  <text x="730" y="252" class="icon-text">&#x2728;</text>
+  <text x="754" y="254" class="title-text">Gemini 2.5 Flash</text>
+  <rect x="710" y="264" width="120" height="16" class="badge badge-blue" />
+  <text x="718" y="276" class="badge-text badge-text-blue">@google/genai SDK</text>
+  <text x="720" y="298" class="desc-text">&#x2022; Text generation (narrative prose)</text>
+  <text x="720" y="314" class="desc-text">&#x2022; Image generation (interleaved)</text>
+
+  <!-- Arrow: Agent -> Gemini -->
+  <line x1="642" y1="290" x2="696" y2="275" class="arrow arrow-primary" marker-end="url(#arrowhead-purple)" />
+  <text x="648" y="274" class="label-text">GenAI SDK</text>
+
+  <!-- === GOOGLE CLOUD SERVICES === -->
+  <text x="120" y="430" class="category-label">Google Cloud Services</text>
+
+  <!-- Cloud Storage -->
+  <rect x="30" y="450" width="200" height="80" class="box box-google" />
+  <text x="55" y="478" class="icon-text">&#x1F4E6;</text>
+  <text x="80" y="480" class="title-text">Cloud Storage</text>
+  <text x="50" y="500" class="desc-text">Generated images (PNG/JPEG)</text>
+  <text x="50" y="516" class="desc-text">Audio narration files (MP3)</text>
+
+  <!-- Firestore -->
+  <rect x="260" y="450" width="200" height="80" class="box box-google" />
+  <text x="285" y="478" class="icon-text">&#x1F4BE;</text>
+  <text x="310" y="480" class="title-text">Firestore</text>
+  <text x="280" y="500" class="desc-text">Story metadata &amp; concepts</text>
+  <text x="280" y="516" class="desc-text">Chapters, decisions, summaries</text>
+
+  <!-- Cloud TTS -->
+  <rect x="490" y="450" width="200" height="80" class="box box-google" />
+  <text x="515" y="478" class="icon-text">&#x1F3A4;</text>
+  <text x="540" y="480" class="title-text">Cloud Text-to-Speech</text>
+  <text x="510" y="500" class="desc-text">Studio voice narration (en-US)</text>
+  <text x="510" y="516" class="desc-text">MP3 encoding, 0.95x speed</text>
+
+  <!-- Cloud Run -->
+  <rect x="720" y="450" width="200" height="80" class="box box-google" />
+  <text x="745" y="478" class="icon-text">&#x2601;</text>
+  <text x="770" y="480" class="title-text">Cloud Run</text>
+  <text x="740" y="500" class="desc-text">Serverless container hosting</text>
+  <text x="740" y="516" class="desc-text">Auto-scaling, HTTPS, WebSocket</text>
+
+  <!-- Arrows: Agent -> Cloud Services -->
+  <line x1="400" y1="375" x2="130" y2="446" class="arrow arrow-data" marker-end="url(#arrowhead-blue)" />
+  <line x1="460" y1="375" x2="360" y2="446" class="arrow arrow-data" marker-end="url(#arrowhead-blue)" />
+  <line x1="520" y1="375" x2="590" y2="446" class="arrow arrow-data" marker-end="url(#arrowhead-blue)" />
+
+  <!-- === DATA FLOW === -->
+  <text x="60" y="580" class="category-label">Data Flow</text>
+
+  <!-- Flow steps -->
+  <rect x="30" y="595" width="140" height="55" class="box box-secondary" />
+  <text x="50" y="616" class="title-text" style="font-size: 11px">1. User defines</text>
+  <text x="50" y="632" class="desc-text">genre, characters,</text>
+  <text x="50" y="644" class="desc-text">setting, tone</text>
+
+  <rect x="195" y="595" width="140" height="55" class="box box-secondary" />
+  <text x="215" y="616" class="title-text" style="font-size: 11px">2. Agent generates</text>
+  <text x="215" y="632" class="desc-text">text + images</text>
+  <text x="215" y="644" class="desc-text">interleaved stream</text>
+
+  <rect x="360" y="595" width="140" height="55" class="box box-secondary" />
+  <text x="380" y="616" class="title-text" style="font-size: 11px">3. Reader views</text>
+  <text x="380" y="632" class="desc-text">prose, illustrations,</text>
+  <text x="380" y="644" class="desc-text">audio narration</text>
+
+  <rect x="525" y="595" width="140" height="55" class="box box-secondary" />
+  <text x="545" y="616" class="title-text" style="font-size: 11px">4. Decision point</text>
+  <text x="545" y="632" class="desc-text">reader picks a</text>
+  <text x="545" y="644" class="desc-text">story direction</text>
+
+  <rect x="690" y="595" width="140" height="55" class="box box-secondary" />
+  <text x="710" y="616" class="title-text" style="font-size: 11px">5. Loop continues</text>
+  <text x="710" y="632" class="desc-text">agent recalls memory,</text>
+  <text x="710" y="644" class="desc-text">generates next ch.</text>
+
+  <line x1="172" y1="622" x2="191" y2="622" class="arrow" marker-end="url(#arrowhead)" />
+  <line x1="337" y1="622" x2="356" y2="622" class="arrow" marker-end="url(#arrowhead)" />
+  <line x1="502" y1="622" x2="521" y2="622" class="arrow" marker-end="url(#arrowhead)" />
+  <line x1="667" y1="622" x2="686" y2="622" class="arrow" marker-end="url(#arrowhead)" />
+</svg>
+
+<div class="legend">
+  <span><span class="legend-dot" style="background: #8b5cf6;"></span> Application layer</span>
+  <span><span class="legend-dot" style="background: #c084fc;"></span> ADK Agent</span>
+  <span><span class="legend-dot" style="background: #4285f4;"></span> Google Cloud service</span>
+  <span><span class="legend-dot" style="background: #4a4570;"></span> Data flow</span>
+</div>
+</body>
+</html>
